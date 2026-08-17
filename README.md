@@ -4,7 +4,7 @@ Aplikasi Cek Kelulusan sederhana yang dibangun dengan PHP 8 dan database MySQL. 
 Aplikasi ini opensource, sehingga bisa digunakan atau dikembangkan. Aplikasi ini berjalan baik di webserver Apache 2 karena menggunakan mode rewrite.
 
 1. PERSIAPAN:
-   - Pastikan sudah terinstall XAMPP/WAMP/Laragon dengan PHP 8+ dan MySQL
+   - Pastikan sudah terinstall XAMPP/WAMP/Laragon dengan PHP 8+ dan MySQL atau Server Linux dengan Webserver Apache, PHP 8 dan MySQL
    - Extract file ke folder htdocs (XAMPP) atau www (WAMP)
 
 2. DATABASE:
