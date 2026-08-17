@@ -24,14 +24,14 @@ Aplikasi ini opensource, sehingga bisa digunakan atau dikembangkan. Aplikasi ini
 5. FITUR ADMIN:
    - Tambah data siswa secara manual
    - Import data dari Excel
-   - Download template Excel/CSV
+   - Download template Excel
    - Hapus data siswa
 
 6. CARA IMPORT EXCEL:
-   - Download template CSV terlebih dahulu
+   - Download template Excel terlebih dahulu
    - Isi data sesuai format (NISN, Nama, Status)
    - Status: 1 = Lulus, 0 = Tidak Lulus
-   - Upload file CSV melalui menu Import
+   - Upload file Excel melalui menu Import
 
 7. KEAMANAN:
    - Ganti password admin halaman admin
