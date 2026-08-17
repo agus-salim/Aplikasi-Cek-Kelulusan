@@ -1,0 +1,93 @@
+# ================================================================
+# .HTACCESS - CLEAN URL + SECURITY HEADERS
+# ================================================================
+
+# Default file untuk direktori
+DirectoryIndex index.php
+
+# Aktifkan RewriteEngine
+RewriteEngine On
+
+# ================================================================
+# 1. REDIRECT /index.php & /index KE / (Root)
+# Mencegah duplicate content untuk SEO
+# ================================================================
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^index\.php$ / [L,R=301]
+
+RewriteCond %{THE_REQUEST} /index[?\s/] [NC]
+RewriteRule ^index$ / [L,R=301]
+
+# ================================================================
+# 2. REDIRECT URL .php KE TANPA .php (SEO Friendly)
+# ================================================================
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^(.*)\.php$ /$1 [L,R=301]
+
+# ================================================================
+# 3. REWRITE URL TANPA .php KE FILE .php
+# ================================================================
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# ================================================================
+# 4. PROTEKSI FOLDER & FILE SENSITIF
+# ================================================================
+RewriteRule (^\.|/\.) - [F,L]
+RewriteRule ^node_modules/ - [F,L]
+RewriteRule ^src/ - [F,L]
+RewriteRule ^vendor/ - [F,L]
+RewriteRule ^uploads/.*\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|sh|cgi)$ - [F,L]
+
+<FilesMatch "^(config\.php|error\.log|composer\.json|composer\.lock|package\.json|package-lock\.json|\.env|\.htpasswd)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ================================================================
+# 5. DISABLE DIRECTORY LISTING & SERVER SIGNATURE
+# ================================================================
+Options -Indexes
+ServerSignature Off
+
+# ================================================================
+# 6. SECURITY HEADERS
+# ================================================================
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests;"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+</IfModule>
+
+# ================================================================
+# 7. PERFORMANCE & CACHING
+# ================================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/x-javascript font/woff2
+</IfModule>

@@ -1,0 +1,411 @@
+/* ================================================================
+   STYLE.CSS - APLIKASI CEK KELULUSAN V2.1
+   ================================================================ */
+
+/* ========================================
+   1. COMMON / RESET
+   ======================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ========================================
+   2. HALAMAN ADMIN - LOGIN
+   ======================================== */
+body.admin-login {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+body.admin-login .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 420px;
+}
+
+body.admin-login .login-box h2 { text-align: center; margin-bottom: 10px; color: #333; font-size: 24px; }
+body.admin-login .login-box .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+body.admin-login .form-group { margin-bottom: 20px; }
+body.admin-login .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 14px; }
+body.admin-login .form-group input { width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; }
+body.admin-login .form-group input:focus { outline: none; border-color: #667eea; }
+body.admin-login button { width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+body.admin-login button:hover { background: #5568d3; }
+body.admin-login .error { background: #ffebee; color: #c62828; padding: 12px; margin-bottom: 20px; text-align: center; border-radius: 8px; border: 1px solid #ef9a9a; font-size: 14px; }
+body.admin-login .back-link { text-align: center; margin-top: 20px; }
+body.admin-login .back-link a { color: #667eea; text-decoration: none; font-size: 14px; }
+
+/* ========================================
+   3. HALAMAN ADMIN - DASHBOARD & SIDEBAR (DIPERBAIKI)
+   ======================================== */
+body.admin-dashboard { 
+    background: #f5f5f5; 
+    margin: 0;
+    padding: 0;
+}
+
+/* Memaksa wrapper menjadi flex agar sidebar dan konten berdampingan */
+.admin-wrapper { 
+    display: flex !important; 
+    min-height: 100vh; 
+    width: 100%;
+}
+
+/* Memaksa sidebar agar TERLIHAT, memiliki lebar, dan tidak tertutup */
+.sidebar { 
+    width: 260px !important; 
+    min-width: 260px;
+    background: #ffffff !important; 
+    border-right: 1px solid #e0e0e0; 
+    position: sticky; 
+    top: 0; 
+    height: 100vh; 
+    overflow-y: auto; 
+    display: flex !important; 
+    flex-direction: column; 
+    z-index: 1000; 
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+}
+
+.sidebar-header { padding: 20px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+.sidebar-header h3 { margin: 0; font-size: 18px; color: #333; }
+.sidebar-header small { color: #666; font-size: 12px; }
+
+.sidebar-menu { list-style: none; padding: 10px 0; margin: 0; flex: 1; }
+.sidebar-menu li a { 
+    display: flex; 
+    align-items: center; 
+    padding: 14px 20px; 
+    color: #555; 
+    text-decoration: none; 
+    transition: 0.3s; 
+    border-left: 4px solid transparent; 
+    font-size: 14px; 
+    font-weight: 500; 
+}
+.sidebar-menu li a:hover { background: #f0f9ff; color: #2196F3; }
+.sidebar-menu li a.active { background: #e3f2fd; color: #1565c0; border-left-color: #1565c0; font-weight: 600; }
+
+/* PERBAIKAN ICON: Tidak miring (normal) */
+.sidebar-menu li a i,
+.sidebar-menu li a .menu-icon { 
+    margin-right: 12px; 
+    font-size: 18px; 
+    width: 24px; 
+    text-align: center; 
+    font-style: normal !important; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-footer { padding: 15px 20px; border-top: 1px solid #e0e0e0; }
+
+.main-content { 
+    flex: 1; 
+    padding: 30px; 
+    overflow-y: auto; 
+    width: 100%;
+}
+
+/* Tab Content System */
+.content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+.content-section.active { display: block !important; } /* Memastikan section aktif selalu muncul */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Responsive Sidebar (Hanya aktif di layar HP) */
+@media (max-width: 768px) {
+    .admin-wrapper { flex-direction: column; }
+    .sidebar { 
+        width: 100% !important; 
+        min-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid #e0e0e0; 
+    }
+    .sidebar-menu { display: flex; overflow-x: auto; padding: 0; }
+    .sidebar-menu li a { padding: 12px 15px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
+    .sidebar-menu li a.active { border-left: none; border-bottom-color: #1565c0; }
+    .sidebar-menu li a i, .sidebar-menu li a .menu-icon { margin-right: 6px; }
+    .sidebar-header, .sidebar-footer { display: none; }
+    .main-content { padding: 15px; }
+}
+
+/* Dashboard Stats & Cards */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+.stat-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+.stat-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; }
+.stat-card .number { font-size: 36px; font-weight: bold; }
+.stat-card.total .number { color: #2196F3; }
+.stat-card.lulus .number { color: #4CAF50; }
+.stat-card.tidak-lulus .number { color: #f44336; }
+
+.card { background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+.card-header { background: #f9f9f9; padding: 20px; border-bottom: 1px solid #e0e0e0; font-weight: 600; font-size: 18px; color: #333; display: flex; align-items: center; gap: 8px; }
+.card-body { padding: 20px; }
+
+/* Forms & Buttons */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; font-size: 14px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; font-family: inherit; }
+.form-group textarea { resize: vertical; }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+.info-text { color: #666; font-size: 13px; margin-top: 8px; }
+
+.btn { padding: 10px 18px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 500; text-decoration: none; display: inline-block; transition: opacity 0.3s; }
+.btn:hover { opacity: 0.9; }
+.btn-primary { background: #4CAF50; color: white; }
+.btn-success { background: #2196F3; color: white; }
+.btn-danger { background: #f44336; color: white; }
+.btn-danger-dark { background: #c62828; color: white; }
+.btn-warning { background: #ff9800; color: white; }
+.btn-wa { background: #25D366; color: white; }
+.btn-wa:hover { background: #128C7E; }
+
+/* Alerts */
+.alert { padding: 15px; border-radius: 5px; margin-bottom: 20px; font-size: 14px; }
+.alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.alert-error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+/* ========================================
+   ALERT DENGAN ANIMASI COLLAPSE (MENGEcil)
+   ======================================== */
+.alert-collapsible {
+    position: sticky;
+    top: 10px;
+    z-index: 999;
+    max-height: 200px; /* Nilai awal yang cukup besar */
+    margin-bottom: 20px;
+    padding: 15px;
+    opacity: 1;
+    overflow: hidden; /* Penting agar konten tidak bocor saat mengecil */
+    transition: max-height 0.5s ease, margin-bottom 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
+}
+
+/* Class ini akan ditambahkan oleh JavaScript setelah 3 detik */
+.alert-collapsible.hidden-alert {
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    border: none; /* Hilangkan border agar benar-benar bersih */
+}
+
+
+/* Tables */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+table th, table td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; font-size: 14px; }
+table th { background: #f5f5f5; font-weight: 600; color: #333; }
+table tr:hover { background: #f9f9f9; }
+.checkbox-cell { width: 40px; text-align: center; }
+input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; vertical-align: middle; }
+
+/* Badges & Status */
+.badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; display: inline-block; }
+.badge-lulus { background: #4CAF50; color: white; }
+.badge-tidak-lulus { background: #f44336; color: white; }
+
+.status-box { padding: 12px; border-radius: 5px; font-size: 14px; }
+.status-open { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
+.status-closed { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+.status-unset { background: #f5f5f5; border: 1px solid #e0e0e0; color: #999; }
+
+/* Actions & Misc */
+.actions-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; align-items: center; justify-content: space-between; }
+.actions-left { display: flex; gap: 10px; flex-wrap: wrap; }
+.empty-state { text-align: center; padding: 40px; color: #999; }
+.footer { text-align: center; margin-top: 30px; padding: 20px; color: #666; font-size: 14px; }
+.section-title { margin: 20px 0 15px; color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 5px; font-size: 16px; }
+.file-preview { margin-top: 10px; }
+.file-preview img { max-width: 200px; max-height: 100px; border: 1px solid #ddd; border-radius: 5px; background: #f5f5f5; }
+.wa-preview { margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 5px; font-size: 13px; }
+.wa-preview a { color: #25D366; text-decoration: none; font-weight: 600; }
+
+/* Theme Cards */
+.tema-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.tema-card {
+    display: block; padding: 20px 15px; border-radius: 12px; cursor: pointer; text-align: center;
+    border: 3px solid transparent; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white; position: relative; overflow: hidden;
+}
+.tema-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); transition: left 0.5s;
+}
+.tema-card:hover::before { left: 100%; }
+.tema-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); border-color: rgba(255, 255, 255, 0.5); }
+.tema-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.tema-card .tema-icon { font-size: 36px; margin-bottom: 10px; display: block; transition: transform 0.3s; }
+.tema-card:hover .tema-icon { transform: scale(1.2) rotate(5deg); }
+.tema-card .tema-name { font-weight: 700; font-size: 16px; margin-bottom: 5px; display: block; }
+.tema-card .tema-badge {
+    font-size: 11px; opacity: 0; background: rgba(255, 255, 255, 0.3); padding: 2px 8px; border-radius: 10px;
+    display: inline-block; transition: all 0.3s; transform: translateY(-10px);
+}
+.tema-card.active { border-color: #fff; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px currentColor; transform: translateY(-3px); }
+.tema-card.active .tema-badge { opacity: 1; transform: translateY(0); }
+.tema-card.active::after {
+    content: '✓'; position: absolute; top: 8px; right: 12px; font-size: 20px; font-weight: bold;
+    background: rgba(255, 255, 255, 0.9); color: #333; width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+@keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+.tema-asli { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.tema-cool { background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%); }
+.tema-warm { background: linear-gradient(135deg, #ff6a88 0%, #ff99ac 100%); }
+.tema-bright { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.tema-dark { background: linear-gradient(135deg, #0f0f1e 0%, #16213e 100%); }
+.tema-dark.active { border-color: #00d9ff; box-shadow: 0 8px 20px rgba(0, 217, 255, 0.3), 0 0 0 2px #00d9ff; }
+.tema-dark.active::after { background: #00d9ff; color: #0f0f1e; }
+
+/* SKL Status Box in Admin */
+.skl-status-box { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 10px; border: 2px solid #e0e0e0; }
+.skl-status-box label { font-weight: 600; font-size: 15px; color: #333; margin-bottom: 12px; display: block; }
+.skl-toggle-wrapper { display: flex; gap: 15px; flex-wrap: wrap; }
+.skl-toggle-label {
+    display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 15px 20px; background: #f5f5f5;
+    border: 2px solid #ddd; border-radius: 10px; flex: 1; min-width: 280px; transition: all 0.3s;
+}
+.skl-toggle-label.active { background: #e8f5e9; border-color: #4CAF50; }
+.skl-toggle-label.inactive { background: #ffebee; border-color: #f44336; }
+.skl-toggle-label:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+/* ========================================
+   4. HALAMAN SISWA - CEK KELULUSAN
+   ======================================== */
+body.siswa-index { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+body.siswa-index .container { max-width: 650px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+body.siswa-index .header { background: #4CAF50; padding: 30px; text-align: center; color: white; }
+body.siswa-index .logo { width: 120px; height: auto; margin-bottom: 15px; }
+body.siswa-index .header h1 { font-size: 28px; margin-bottom: 10px; }
+body.siswa-index .header p { font-size: 14px; opacity: 0.9; }
+body.siswa-index .content { padding: 40px 30px; }
+body.siswa-index .form-group { margin-bottom: 25px; }
+body.siswa-index .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; }
+body.siswa-index .form-group input { width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: border-color 0.3s; }
+body.siswa-index .form-group input:focus { outline: none; border-color: #4CAF50; }
+body.siswa-index .btn { width: 100%; padding: 15px; background: #4CAF50; color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+body.siswa-index .btn:hover { background: #45a049; }
+body.siswa-index .alert { padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+body.siswa-index .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+body.siswa-index .hasil-box { background: #f9f9f9; padding: 30px; border-radius: 15px; text-align: center; margin-top: 20px; }
+body.siswa-index .hasil-box h2 { margin-bottom: 15px; color: #333; font-size: 22px; }
+body.siswa-index .info-siswa { background: white; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #667eea; }
+body.siswa-index .info-siswa p { margin: 5px 0; font-size: 15px; }
+body.siswa-index .info-siswa strong { color: #333; }
+body.siswa-index .status-lulus { color: #4CAF50; font-size: 52px; font-weight: bold; margin: 20px 0; text-shadow: 2px 2px 4px rgba(76, 175, 80, 0.2); animation: pulse 2s infinite; }
+body.siswa-index .status-tidak-lulus { color: #f44336; font-size: 52px; font-weight: bold; margin: 20px 0; text-shadow: 2px 2px 4px rgba(244, 67, 54, 0.2); }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+body.siswa-index .keterangan { margin-top: 20px; padding: 20px; border-radius: 10px; font-size: 15px; line-height: 1.6; font-style: italic; }
+body.siswa-index .keterangan-lulus { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); color: #2e7d32; border: 2px solid #4CAF50; }
+body.siswa-index .keterangan-tidak-lulus { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); color: #e65100; border: 2px solid #ff9800; }
+body.siswa-index .keterangan-icon { font-size: 40px; margin-bottom: 10px; }
+
+body.siswa-index .info-skl { margin-top: 20px; padding: 15px; background: #ffffff; border-radius: 10px; border: 1px dashed #4CAF50; color: #333; font-size: 14px; font-style: normal; line-height: 1.5; }
+body.siswa-index .info-skl strong { color: #2e7d32; }
+body.siswa-index .btn-wa { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; padding: 10px 20px; background: #25D366; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 14px; transition: background 0.3s, transform 0.2s; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3); }
+body.siswa-index .btn-wa:hover { background: #128C7E; transform: translateY(-2px); }
+body.siswa-index .btn-cek-lagi { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #667eea; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s; }
+body.siswa-index .btn-cek-lagi:hover { background: #5568d3; }
+body.siswa-index .footer { text-align: center; padding: 20px; background: #f5f5f5; color: #666; font-size: 14px; }
+
+body.siswa-index .countdown-box { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin: 20px 0; box-shadow: 0 10px 30px rgba(238, 90, 111, 0.3); }
+body.siswa-index .countdown-box h3 { font-size: 18px; margin-bottom: 15px; font-weight: 600; }
+body.siswa-index .countdown-timer { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+body.siswa-index .countdown-item { background: rgba(255, 255, 255, 0.2); padding: 15px; border-radius: 10px; min-width: 70px; backdrop-filter: blur(10px); }
+body.siswa-index .countdown-item .number { font-size: 36px; font-weight: bold; display: block; line-height: 1; }
+body.siswa-index .countdown-item .label { font-size: 12px; text-transform: uppercase; margin-top: 5px; opacity: 0.9; }
+body.siswa-index .countdown-info { font-size: 14px; margin-top: 15px; opacity: 0.95; }
+body.siswa-index .countdown-info strong { display: block; margin-top: 5px; font-size: 16px; }
+body.siswa-index .locked-message { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; border: 1px solid #ffeaa7; margin: 20px 0; font-size: 14px; text-align: center; }
+body.siswa-index .locked-message strong { display: block; margin-bottom: 5px; font-size: 16px; }
+body.siswa-index .btn-skl-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+body.siswa-index .btn-skl { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 14px; transition: all 0.3s; }
+body.siswa-index .btn-skl-cetak { background: #ff9800; }
+body.siswa-index .btn-skl-cetak:hover { background: #f57c00; transform: translateY(-2px); }
+body.siswa-index .btn-skl-pdf { background: #f44336; }
+body.siswa-index .btn-skl-pdf:hover { background: #d32f2f; transform: translateY(-2px); }
+
+/* ========================================
+   5. HALAMAN SISWA - DAFTAR NISN
+   ======================================== */
+body.siswa-nisn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+body.siswa-nisn .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+body.siswa-nisn .header { background: #4CAF50; padding: 30px; text-align: center; color: white; }
+body.siswa-nisn .logo { width: 100px; height: auto; margin-bottom: 10px; }
+body.siswa-nisn .header h1 { font-size: 24px; margin-bottom: 5px; }
+body.siswa-nisn .header p { font-size: 14px; opacity: 0.9; }
+body.siswa-nisn .content { padding: 30px; }
+body.siswa-nisn .search-box { margin-bottom: 25px; position: relative; }
+body.siswa-nisn .search-box input { width: 100%; padding: 15px 20px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: border-color 0.3s; }
+body.siswa-nisn .search-box input:focus { outline: none; border-color: #4CAF50; }
+body.siswa-nisn .table-wrapper { overflow-x: auto; border-radius: 10px; border: 1px solid #e0e0e0; }
+body.siswa-nisn table { width: 100%; border-collapse: collapse; }
+body.siswa-nisn table th, body.siswa-nisn table td { padding: 15px; text-align: left; border-bottom: 1px solid #e0e0e0; font-size: 14px; }
+body.siswa-nisn table th { background: #f5f5f5; font-weight: 600; color: #333; position: sticky; top: 0; }
+body.siswa-nisn table tr:hover { background: #f9f9f9; }
+body.siswa-nisn table tr:last-child td { border-bottom: none; }
+body.siswa-nisn .empty-state { text-align: center; padding: 40px; color: #999; }
+body.siswa-nisn .btn-back { display: inline-block; padding: 12px 25px; background: #667eea; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s; }
+body.siswa-nisn .btn-back:hover { background: #5568d3; }
+body.siswa-nisn .footer { text-align: center; padding: 20px; background: #f5f5f5; color: #666; font-size: 14px; }
+body.siswa-nisn .info-text { text-align: center; color: #666; font-size: 13px; margin-bottom: 15px; }
+
+/* ========================================
+   6. HALAMAN SKL (PREVIEW BROWSER & PRINT)
+   ======================================== */
+body.page-skl { font-family: 'Times New Roman', Times, serif; background: #f5f5f5; padding: 20px; }
+
+body.page-skl .action-bar { max-width: 210mm; margin: 0 auto 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+body.page-skl .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; font-family: 'Segoe UI', sans-serif; }
+body.page-skl .btn-print { background: #4CAF50; color: white; }
+body.page-skl .btn-print:hover { background: #45a049; }
+body.page-skl .btn-pdf { background: #f44336; color: white; }
+body.page-skl .btn-pdf:hover { background: #d32f2f; }
+body.page-skl .btn-back { background: #667eea; color: white; }
+body.page-skl .btn-back:hover { background: #5568d3; }
+
+body.page-skl .skl-container { max-width: 210mm; margin: 0 auto; background: white; padding: 15px 15mm 20mm 15mm; box-shadow: 0 5px 20px rgba(0,0,0,0.1); min-height: 297mm; }
+body.page-skl .kop-surat { text-align: center; margin-bottom: 20px; border-bottom: 3px double #000; padding-bottom: 15px; }
+body.page-skl .kop-surat img { max-width: 100%; max-height: 120px; }
+body.page-skl .skl-content { padding: 20px 0; }
+body.page-skl .judul { text-align: center; font-size: 18pt; font-weight: bold; text-decoration: underline; margin: 20px 0 0 0; text-transform: uppercase; }
+body.page-skl .nomor { text-align: center; font-size: 12pt; margin-top: 0; margin-bottom: 30px; }
+body.page-skl .data-siswa { margin: 20px 0; }
+body.page-skl .data-table { width: 100%; border-collapse: collapse; }
+body.page-skl .data-table td { padding: 6px 10px; font-size: 12pt; vertical-align: top; line-height: 1.6; }
+body.page-skl .isi-surat { margin: 30px 0; font-size: 12pt; line-height: 1.6; text-align: justify; }
+
+body.page-skl .ttd-section { margin-top: 60px; width: 100%; }
+body.page-skl .ttd-kanan { float: right; width: 300px; text-align: left; }
+body.page-skl .ttd-kanan p { font-size: 12pt; margin: 3px 0; line-height: 1.6; }
+body.page-skl .ttd-img { max-width: 200px; max-height: 120px; margin: 10px 0; display: block; }
+body.page-skl .nama-kepala { font-weight: bold; text-decoration: underline; margin-top: 10px; margin-bottom: 0; }
+body.page-skl .nip { font-size: 11pt; margin-top: 0; }
+
+/* Print Styles untuk SKL */
+@media print {
+    body.page-skl { background: white; padding: 0; }
+    body.page-skl .action-bar { display: none; }
+    body.page-skl .skl-container { box-shadow: none; margin: 0; padding: 15px 15mm 20mm 15mm; }
+    @page { size: A4; margin: 25mm; }
+}
