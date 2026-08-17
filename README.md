@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Aplikasi Cek Kelulusan
-=======
 # 🎓 Aplikasi Cek Kelulusan Siswa
->>>>>>> 3d541964455fa15516799966494b07b72c8ab765
 
 Sistem informasi sederhana, cepat, dan elegan untuk memfasilitasi pengecekan status kelulusan siswa. Proyek ini bersifat *open-source* dan dirancang agar mudah diimplementasikan maupun dikembangkan lebih lanjut oleh pihak sekolah, instansi, maupun pengembang independen.
 
