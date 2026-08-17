@@ -1,8 +1,5 @@
-# cek-kelulusan
 Aplikasi Cek Kelulusan sedarhana yang dibangun dengan PHP 8 dan database MySQL. Tampilan saya percayakan Tailwind CSS dan Fontawesome. 
 Aplikasi ini opensource, sehingga bisa digunakan atau dikembangkan. Aplikasi ini berjalan baik di webserver Apache 2 karena menggunakan mode rewrite.
-CARA INSTALASI
-===================================================
 
 1. PERSIAPAN:
    - Pastikan sudah terinstall XAMPP/WAMP/Laragon dengan PHP 8+ dan MySQL
